@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import About from './inicio/TelaInicial'
 import ListagemZoonoses from './Zoonoses/Listagem'
 import CriarRaiva from './Zoonoses/RaivaCriar'
+import ShowRaiva from './Zoonoses/RaivaShow'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/' element={<About/>} />
           <Route path='/zoonoses' element={<ListagemZoonoses/>} />
           <Route path='/zoonoses/raiva/criar' element={<CriarRaiva/>} />
+          <Route path="/zoonoses/raiva/:id" element={<ShowRaiva />} />
         </Routes>
       </div>
     </>

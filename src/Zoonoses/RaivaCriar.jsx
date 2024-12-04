@@ -12,11 +12,11 @@ const CriarRaiva = () => {
         data_nascimento: "",
         idade: "",
         sexo: "",
-        numero_sus: "1111",
+        numero_sus: "",
         municipio_residencia: "Bento Gonçalves",
         bairro_id: "",
         rua_id: "",
-        numero: "145",
+        numero: "",
         tipo_exposicao: "",
         ferimento: "",
         localizacao_ferimento: "",
@@ -166,6 +166,22 @@ const CriarRaiva = () => {
             </div>
 
             <div>
+                <TextField
+                    label="Número Sus"
+                    name="numero_sus"
+                    type="number"
+                    value={formData.numero_sus}
+                    onChange={handleChange}
+                    fullWidth
+                    slotProps={{
+                        inputLabel: {
+                        shrink: true,
+                        },
+                    }}
+                />
+            </div>
+
+            <div>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker 
                         label="Data de Nascimento" 
@@ -246,6 +262,22 @@ const CriarRaiva = () => {
                         <FormHelperText>{formErrors.rua_id[0]}</FormHelperText>
                     )}
                 </FormControl>
+            </div>
+
+            <div>
+                <TextField
+                    label="Numero"
+                    name="numero"
+                    type="number"
+                    value={formData.numero}
+                    onChange={handleChange}
+                    fullWidth
+                    slotProps={{
+                        inputLabel: {
+                        shrink: true,
+                        },
+                    }}
+                />
             </div>
             
             <hr className="col-span-3"/>

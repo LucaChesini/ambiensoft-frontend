@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
@@ -37,7 +38,11 @@ const TableComponent = () => {
           {data.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.id}</TableCell>
-              <TableCell>{row.nome}</TableCell>
+              <TableCell>
+                <Link to={`/zoonoses/${row.doenca}/${row.id}`} >
+                  {row.nome}
+                </Link>
+              </TableCell>
               <TableCell>{row.idade}</TableCell>
               <TableCell>{row.doenca_descricao}</TableCell>
             </TableRow>
