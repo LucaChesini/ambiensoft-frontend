@@ -6,6 +6,7 @@ import About from './inicio/TelaInicial'
 import ListagemZoonoses from './Zoonoses/Listagem'
 import CriarRaiva from './Zoonoses/RaivaCriar'
 import ShowRaiva from './Zoonoses/RaivaShow'
+import EditarRaiva from './Zoonoses/RaivaEditar'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/zoonoses' element={<ListagemZoonoses/>} />
           <Route path='/zoonoses/raiva/criar' element={<CriarRaiva/>} />
           <Route path="/zoonoses/raiva/:id" element={<ShowRaiva />} />
+          <Route path="/zoonoses/raiva/:id/editar" element={<EditarRaiva />} />
         </Routes>
       </div>
     </>
