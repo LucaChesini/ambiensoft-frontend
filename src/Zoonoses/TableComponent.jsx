@@ -76,7 +76,7 @@ const TableComponent = () => {
 
   const deletar = async (id, tipo) => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/zoonoses/raiva/${id}`);
+      const response = await axios.delete(`http://127.0.0.1:8000/api/zoonoses/${tipo}/${id}`);
       fetchData();
     } catch (err) {
       setError('Erro ao buscar dados');
