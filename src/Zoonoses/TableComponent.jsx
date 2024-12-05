@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Delete } from '@mui/icons-material';
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
@@ -72,6 +73,17 @@ const TableComponent = () => {
   useEffect(() => {
     fetchData();
   }, [])
+
+  const deletar = async (id, tipo) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/zoonoses/raiva/${id}`);
+      fetchData();
+    } catch (err) {
+      setError('Erro ao buscar dados');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -173,6 +185,7 @@ const TableComponent = () => {
               <TableCell>Doença</TableCell>
               <TableCell>Bairro</TableCell>
               <TableCell>Rua</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -187,6 +200,15 @@ const TableComponent = () => {
                 <TableCell>{row.doenca_descricao}</TableCell>
                 <TableCell>{row.bairro.nome}</TableCell>
                 <TableCell>{row.rua.nome}</TableCell>
+                <TableCell>
+                  <Button 
+                  variant="contained" 
+                  color='error'
+                  onClick={() => deletar(row.id, row.doenca)}
+                  >
+                    <Delete />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
