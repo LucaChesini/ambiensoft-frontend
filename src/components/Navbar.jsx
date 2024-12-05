@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <AppBar position="fixed">
       <Toolbar className="bg-blue-500">
-        <Typography variant="h6" className="flex-grow">
+        <Typography variant="h5" className="flex-grow">
           <Link to="/" className="text-white">
             AmbienSoft
           </Link>

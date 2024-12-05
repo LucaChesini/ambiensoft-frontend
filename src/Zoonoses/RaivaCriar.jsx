@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormControlLabel, Checkbox, FormHelperText } from "@mui/material";
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { Link } from "react-router-dom";
 
 const CriarRaiva = () => {
     const [formData, setFormData] = useState({
@@ -142,6 +143,12 @@ const CriarRaiva = () => {
     };
 
     return (
+        <>
+        <Link to={`/zoonoses`} >
+          <Button variant="contained" color="success">
+            Voltar
+          </Button>
+        </Link>
         <form onSubmit={handleSubmit} className="p-4 grid grid-cols-3 gap-4">
             <div className="col-span-3">
                 <TextField
@@ -381,6 +388,7 @@ const CriarRaiva = () => {
                 </Button>
             </div>
         </form>
+        </>
     );
   };
   

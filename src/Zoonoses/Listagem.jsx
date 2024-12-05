@@ -1,26 +1,29 @@
 import React from "react";
 import TableComponent from "./TableComponent";
 import { Button, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ListagemZoonoses = () => {
     return (
       <div className="p-4">
-        <div>
-          <Typography variant="h2" gutterBottom>
+        <div className="flex flex-row justify-between">
+          <Typography variant="h2" gutterBottom sx={{margin: 0}}>
             Zoonoses
           </Typography>
-        </div>
-        <div>
-          <span className="mr-5">
-            <Button variant="contained" color="success">
-              Raiva
-            </Button>
-          </span>
-          <span className="mr-5">
-            <Button variant="contained" color="success">
-              Leptospirose
-            </Button>
-          </span>
+          <div className="flex items-center">
+            <span className="mr-5">
+              <Link to={`/zoonoses/raiva/criar`} >
+                <Button variant="contained" color="success">
+                  Raiva
+                </Button>
+              </Link>
+            </span>
+            <span className="mr-5">
+              <Button variant="contained" color="success">
+                Leptospirose
+              </Button>
+            </span>
+          </div>
         </div>
         <TableComponent />
       </div>

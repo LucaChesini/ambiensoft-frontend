@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormControlLabel, Checkbox, FormHelperText } from "@mui/material";
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 
@@ -190,6 +190,12 @@ const EditarRaiva = () => {
     };
 
     return (
+        <>
+        <Link to={`/zoonoses`} >
+          <Button variant="contained" color="success">
+            Voltar
+          </Button>
+        </Link>
         <form onSubmit={handleSubmit} className="p-4 grid grid-cols-3 gap-4">
             <div className="col-span-3">
                 <TextField
@@ -431,6 +437,7 @@ const EditarRaiva = () => {
                 </Button>
             </div>
         </form>
+        </>
     );
   };
   
