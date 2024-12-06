@@ -19,13 +19,13 @@ const CriarLeptospirose = () => {
         rua_id: "",
         numero: "",
         sintomas: [],
-        situacaos: [],
+        situacoes: [],
     });
 
     const [enums, setEnums] = useState({
         sexo: {},
         sintomas: {},
-        situacaos: {},
+        situacoes: {},
     });
 
     const [enderecos, setEnderecos] = useState({
@@ -40,7 +40,7 @@ const CriarLeptospirose = () => {
     useEffect(() => {
         const fetchEnums = async () => {
             try {
-                const [sexo, sintomas, situacaos] =
+                const [sexo, sintomas, situacoes] =
                 await Promise.all([
                     axios.get("http://127.0.0.1:8000/api/enums/sexo"),
                     axios.get("http://127.0.0.1:8000/api/enums/sintomas-leptospirose"),
@@ -50,7 +50,7 @@ const CriarLeptospirose = () => {
                 setEnums({
                     sexo: sexo.data,
                     sintomas: sintomas.data,
-                    situacaos: situacaos.data,
+                    situacoes: situacoes.data,
                 });
             } catch (error) {
                 console.error("Erro ao buscar os enums:", error);
@@ -118,10 +118,10 @@ const CriarLeptospirose = () => {
         
         setFormData((prevData) => {
             const updatedSituacoes = checked
-                ? [...prevData.situacaos, value]
-                : prevData.situacaos.filter(item => item !== value);
+                ? [...prevData.situacoes, value]
+                : prevData.situacoes.filter(item => item !== value);
             
-            return { ...prevData, situacaos: updatedSituacoes };
+            return { ...prevData, situacoes: updatedSituacoes };
         });
     };
 
@@ -144,9 +144,9 @@ const CriarLeptospirose = () => {
     return (
         <>
         <Link to={`/zoonoses`} >
-          <Button variant="contained" color="success">
-            Voltar
-          </Button>
+            <Button variant="contained" color="success">
+                Voltar
+            </Button>
         </Link>
         <form onSubmit={handleSubmit} className="p-4 grid grid-cols-3 gap-4">
             <div className="col-span-3">
@@ -309,13 +309,13 @@ const CriarLeptospirose = () => {
 
             <div className="col-span-3">
                 <h3>Situações de Risco</h3>
-                {Object.entries(enums.situacaos).map(([id, nome]) => (
+                {Object.entries(enums.situacoes).map(([id, nome]) => (
                     <FormControlLabel
                         key={id}
                         control={
                             <Checkbox
                                 value={id}
-                                checked={formData.situacaos.includes(id)}
+                                checked={formData.situacoes.includes(id)}
                                 onChange={handleSituacoesChange}
                             />
                         }

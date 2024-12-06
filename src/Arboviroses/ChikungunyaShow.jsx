@@ -1,8 +1,8 @@
-import { Card, CardContent, Grid2, List, ListItem, ListItemText, Typography } from '@mui/material';
+import { Button, Card, CardContent, Grid2, List, ListItem, ListItemText, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const ShowChikungunya = () => {
     const {id} = useParams();
@@ -26,6 +26,12 @@ const ShowChikungunya = () => {
       }, [id])
 
     return (
+        <>
+        <Link to={`/arboviroses`} >
+            <Button variant="contained" color="success">
+                Voltar
+            </Button>
+        </Link>
         <div className="p-4 grid grid-cols-2 gap-4">
             <div className="col-span-2">
                 <Typography variant="h4" gutterBottom>
@@ -106,6 +112,7 @@ const ShowChikungunya = () => {
                 </Card>
             </div>
         </div>
+        </>
     );
   };
   
