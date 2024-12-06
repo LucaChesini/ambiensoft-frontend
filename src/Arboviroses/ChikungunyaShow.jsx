@@ -29,7 +29,7 @@ const ShowChikungunya = () => {
         <div className="p-4 grid grid-cols-2 gap-4">
             <div className="col-span-2">
                 <Typography variant="h4" gutterBottom>
-                    Detalhes da Zoonose: Chikungunya
+                    Detalhes da Arbovirose: Chikungunya
                 </Typography>
             </div>
 
