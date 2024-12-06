@@ -21,6 +21,8 @@ import TelaInicial from './inicio/TelaInicial'
 import TelaInicialEnderecos from './Enderecos/TelaInicial'
 import CriarBairro from './Enderecos/Bairro'
 import CriarRua from './Enderecos/Rua'
+import CriarEncontro from './Encontros/EncontroCriar'
+import CriarDenuncia from './Denuncias/DenunciaCriar'
 
 function App() {
 
@@ -47,6 +49,8 @@ function App() {
           <Route path="/enderecos" element={<TelaInicialEnderecos />} />
           <Route path="/enderecos/bairro/criar" element={<CriarBairro />} />
           <Route path="/enderecos/rua/criar" element={<CriarRua />} />
+          <Route path="/encontros/criar" element={<CriarEncontro />} />
+          <Route path="/denuncias/criar" element={<CriarDenuncia />} />
         </Routes>
       </div>
     </>

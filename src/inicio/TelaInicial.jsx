@@ -21,12 +21,12 @@ const TelaInicial = () => {
               Endereços
           </Button>
         </Link>
-        <Link to={`/encontros`}>
+        <Link to={`/encontros/criar`}>
           <Button variant="contained" style={{width: '100%'}}>
               Encontros
           </Button>
         </Link>
-        <Link to={`/denuncias`}>
+        <Link to={`/denuncias/criar`}>
           <Button variant="contained" style={{width: '100%'}}>
               Denúncias
           </Button>
