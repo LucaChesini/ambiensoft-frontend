@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import { useParams } from 'react-router-dom';
 
-const ShowLeptospirose = () => {
+const ShowChikungunya = () => {
     const {id} = useParams();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,8 +13,7 @@ const ShowLeptospirose = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/zoonoses/leptospirose/${id}`);
-            console.log(response.data.data);
+            const response = await axios.get(`http://127.0.0.1:8000/api/arboviroses/chikungunya/${id}`);
             setData(response.data.data);
           } catch (err) {
             setError('Erro ao buscar dados');
@@ -30,7 +29,7 @@ const ShowLeptospirose = () => {
         <div className="p-4 grid grid-cols-2 gap-4">
             <div className="col-span-2">
                 <Typography variant="h4" gutterBottom>
-                    Detalhes da Zoonose: Leptospirose
+                    Detalhes da Zoonose: Chikungunya
                 </Typography>
             </div>
 
@@ -69,18 +68,18 @@ const ShowLeptospirose = () => {
                 <Card sx={{height: '100%'}}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom>
-                            Sintomas Relatados
+                            Sinais Relatados
                         </Typography>
-                        {data.zoonosable?.leptospirose_sintomas.length > 0 ? (
+                        {data.arbovirosable?.chikungunya_sinals.length > 0 ? (
                             <ul className="list-disc m-5">
-                                {data.zoonosable.leptospirose_sintomas.map((sintoma) => (
-                                    <li key={sintoma.id}>
-                                        {sintoma.descricao}
+                                {data.arbovirosable.chikungunya_sinals.map((sinal) => (
+                                    <li key={sinal.id}>
+                                        {sinal.descricao}
                                     </li>
                                 ))}
                             </ul>
                         ) : (
-                            <Typography>Nenhum sintoma relatado.</Typography>
+                            <Typography>Nenhum sinal relatado.</Typography>
                         )}
                     </CardContent>
                 </Card>
@@ -90,18 +89,18 @@ const ShowLeptospirose = () => {
                 <Card sx={{height: '100%'}}>
                     <CardContent>
                         <Typography variant="h6" gutterBottom>
-                            Situações de Risco
+                            Doenças Pré-Existentes
                         </Typography>
-                        {data.zoonosable?.leptospirose_situacaos.length > 0 ? (
+                        {data.arbovirosable?.chikungunya_doencas.length > 0 ? (
                             <ul className="list-disc m-5">
-                                {data.zoonosable.leptospirose_situacaos.map((situacao) => (
-                                    <li key={situacao.id}>
-                                        {situacao.descricao}
+                                {data.arbovirosable.chikungunya_doencas.map((doenca) => (
+                                    <li key={doenca.id}>
+                                        {doenca.descricao}
                                     </li>
                                 ))}
                             </ul>
                         ) : (
-                            <Typography>Nenhuma situação de risco relatada.</Typography>
+                            <Typography>Nenhuma doença pré-existente relatada.</Typography>
                         )}
                     </CardContent>
                 </Card>
@@ -110,4 +109,4 @@ const ShowLeptospirose = () => {
     );
   };
   
-  export default ShowLeptospirose;
+  export default ShowChikungunya;

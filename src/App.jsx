@@ -10,6 +10,13 @@ import EditarRaiva from './Zoonoses/RaivaEditar'
 import CriarLeptospirose from './Zoonoses/LeptospiroseCriar'
 import ShowLeptospirose from './Zoonoses/LeptospiroseShow'
 import EditarLeptospirose from './Zoonoses/LeptospiroseEditar'
+import ListagemArboviroses from './Arboviroses/Listagem'
+import CriarDengue from './Arboviroses/DengueCriar'
+import CriarChikungunya from './Arboviroses/ChikungunyaCriar'
+import ShowDengue from './Arboviroses/DengueShow'
+import ShowChikungunya from './Arboviroses/ChikungunyaShow'
+import EditarDengue from './Arboviroses/DengueEditar'
+import EditarChikungunya from './Arboviroses/ChikungunyaEditar'
 
 function App() {
 
@@ -26,6 +33,13 @@ function App() {
           <Route path="/zoonoses/leptospirose/:id" element={<ShowLeptospirose />} />
           <Route path="/zoonoses/raiva/:id/editar" element={<EditarRaiva />} />
           <Route path="/zoonoses/leptospirose/:id/editar" element={<EditarLeptospirose />} />
+          <Route path='/arboviroses' element={<ListagemArboviroses/>} />
+          <Route path='/arboviroses/dengue/criar' element={<CriarDengue/>} />
+          <Route path='/arboviroses/chikungunya/criar' element={<CriarChikungunya/>} />
+          <Route path="/arboviroses/dengue/:id" element={<ShowDengue />} />
+          <Route path="/arboviroses/chikungunya/:id" element={<ShowChikungunya />} />
+          <Route path="/arboviroses/dengue/:id/editar" element={<EditarDengue />} />
+          <Route path="/arboviroses/chikungunya/:id/editar" element={<EditarChikungunya />} />
         </Routes>
       </div>
     </>

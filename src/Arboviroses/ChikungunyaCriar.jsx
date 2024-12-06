@@ -5,9 +5,9 @@ import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormContr
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { Link, useNavigate } from "react-router-dom";
 
-const CriarLeptospirose = () => {
+const CriarChikungunya = () => {
     const [formData, setFormData] = useState({
-        doenca: "leptospirose",
+        doenca: "chikungunya",
         unidade_saude: "",
         nome: "",
         data_nascimento: "",
@@ -18,14 +18,14 @@ const CriarLeptospirose = () => {
         bairro_id: "",
         rua_id: "",
         numero: "",
-        sintomas: [],
-        situacaos: [],
+        sinais: [],
+        doencas: [],
     });
 
     const [enums, setEnums] = useState({
         sexo: {},
-        sintomas: {},
-        situacaos: {},
+        sinais: {},
+        doencas: {},
     });
 
     const [enderecos, setEnderecos] = useState({
@@ -40,17 +40,17 @@ const CriarLeptospirose = () => {
     useEffect(() => {
         const fetchEnums = async () => {
             try {
-                const [sexo, sintomas, situacaos] =
+                const [sexo, sinais, doencas] =
                 await Promise.all([
                     axios.get("http://127.0.0.1:8000/api/enums/sexo"),
-                    axios.get("http://127.0.0.1:8000/api/enums/sintomas-leptospirose"),
-                    axios.get("http://127.0.0.1:8000/api/enums/situacao-risco-leptospirose"),
+                    axios.get("http://127.0.0.1:8000/api/enums/sinais-clinicos"),
+                    axios.get("http://127.0.0.1:8000/api/enums/doencas-pre-existentes"),
                 ]);
                 
                 setEnums({
                     sexo: sexo.data,
-                    sintomas: sintomas.data,
-                    situacaos: situacaos.data,
+                    sinais: sinais.data,
+                    doencas: doencas.data,
                 });
             } catch (error) {
                 console.error("Erro ao buscar os enums:", error);
@@ -101,27 +101,27 @@ const CriarLeptospirose = () => {
         }));
     };
 
-    const handleSintomasChange = (event) => {
+    const handleSinaisChange = (event) => {
         const { value, checked } = event.target;
         
         setFormData((prevData) => {
-            const updatedSintomas = checked
-                ? [...prevData.sintomas, value]
-                : prevData.sintomas.filter(item => item !== value);
+            const updatedSinais = checked
+                ? [...prevData.sinais, value]
+                : prevData.sinais.filter(item => item !== value);
             
-            return { ...prevData, sintomas: updatedSintomas };
+            return { ...prevData, sinais: updatedSinais };
         });
     };
 
-    const handleSituacoesChange = (event) => {
+    const handleDoencasChange = (event) => {
         const { value, checked } = event.target;
         
         setFormData((prevData) => {
-            const updatedSituacoes = checked
-                ? [...prevData.situacaos, value]
-                : prevData.situacaos.filter(item => item !== value);
+            const updatedDoencas = checked
+                ? [...prevData.doencas, value]
+                : prevData.doencas.filter(item => item !== value);
             
-            return { ...prevData, situacaos: updatedSituacoes };
+            return { ...prevData, doencas: updatedDoencas };
         });
     };
 
@@ -129,9 +129,9 @@ const CriarLeptospirose = () => {
         event.preventDefault();
         setFormErrors({});
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/zoonoses/leptospirose", formData);
+            const response = await axios.post("http://127.0.0.1:8000/api/arboviroses/chikungunya", formData);
             setFormErrors({});
-            navigate('/zoonoses');
+            navigate('/arboviroses');
         } catch (error) {
             if (error.response && error.response.data.errors) {
                 setFormErrors(error.response.data.errors);
@@ -143,7 +143,7 @@ const CriarLeptospirose = () => {
 
     return (
         <>
-        <Link to={`/zoonoses`} >
+        <Link to={`/arboviroses`} >
           <Button variant="contained" color="success">
             Voltar
           </Button>
@@ -289,15 +289,15 @@ const CriarLeptospirose = () => {
             <hr className="col-span-3"/>
 
             <div className="col-span-3">
-                <h3>Sintomas</h3>
-                {Object.entries(enums.sintomas).map(([id, nome]) => (
+                <h3>Sinais</h3>
+                {Object.entries(enums.sinais).map(([id, nome]) => (
                     <FormControlLabel
                         key={id}
                         control={
                             <Checkbox
                                 value={id}
-                                checked={formData.sintomas.includes(id)}
-                                onChange={handleSintomasChange}
+                                checked={formData.sinais.includes(id)}
+                                onChange={handleSinaisChange}
                             />
                         }
                         label={nome}
@@ -308,15 +308,15 @@ const CriarLeptospirose = () => {
             <hr className="col-span-3"/>
 
             <div className="col-span-3">
-                <h3>Situações de Risco</h3>
-                {Object.entries(enums.situacaos).map(([id, nome]) => (
+                <h3>Doenças Pré-Existentes</h3>
+                {Object.entries(enums.doencas).map(([id, nome]) => (
                     <FormControlLabel
                         key={id}
                         control={
                             <Checkbox
                                 value={id}
-                                checked={formData.situacaos.includes(id)}
-                                onChange={handleSituacoesChange}
+                                checked={formData.doencas.includes(id)}
+                                onChange={handleDoencasChange}
                             />
                         }
                         label={nome}
@@ -336,4 +336,4 @@ const CriarLeptospirose = () => {
     );
   };
   
-export default CriarLeptospirose;
+export default CriarChikungunya;
