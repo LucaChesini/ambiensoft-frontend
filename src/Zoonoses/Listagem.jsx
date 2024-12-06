@@ -19,9 +19,11 @@ const ListagemZoonoses = () => {
               </Link>
             </span>
             <span className="mr-5">
-              <Button variant="contained" color="success">
-                Leptospirose
-              </Button>
+              <Link to={`/zoonoses/leptospirose/criar`} >
+                <Button variant="contained" color="success">
+                  Leptospirose
+                </Button>
+              </Link>
             </span>
           </div>
         </div>

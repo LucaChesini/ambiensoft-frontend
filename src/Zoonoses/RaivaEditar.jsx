@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormControlLabel, Checkbox, FormHelperText } from "@mui/material";
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { format, parseISO } from "date-fns";
 import dayjs from "dayjs";
 
@@ -45,6 +45,8 @@ const EditarRaiva = () => {
     });
 
     const [formErrors, setFormErrors] = useState({});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEnums = async () => {
@@ -180,6 +182,7 @@ const EditarRaiva = () => {
         try {
             const response = await axios.put(`http://127.0.0.1:8000/api/zoonoses/raiva/${id}`, formData);
             setFormErrors({});
+            navigate('/zoonoses');
         } catch (error) {
             if (error.response && error.response.data.errors) {
                 setFormErrors(error.response.data.errors);

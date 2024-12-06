@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormControlLabel, Checkbox, FormHelperText } from "@mui/material";
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { format, parseISO } from "date-fns";
+import dayjs from "dayjs";
 
-const CriarLeptospirose = () => {
+const EditarLeptospirose = () => {
+    const {id} = useParams();
+    const [selectedDate, setSelectedDate] = useState(null);
     const [formData, setFormData] = useState({
         doenca: "leptospirose",
         unidade_saude: "",
@@ -19,7 +23,7 @@ const CriarLeptospirose = () => {
         rua_id: "",
         numero: "",
         sintomas: [],
-        situacaos: [],
+        situacoes: [],
     });
 
     const [enums, setEnums] = useState({
@@ -34,6 +38,8 @@ const CriarLeptospirose = () => {
     });
 
     const [formErrors, setFormErrors] = useState({});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEnums = async () => {
@@ -76,6 +82,44 @@ const CriarLeptospirose = () => {
         fetchEnderecos();
     }, []);
 
+    useEffect(() => {
+        const fetchZoonose = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:8000/api/zoonoses/leptospirose/${id}`);
+                const mappedData = mapApiResponseToFormData(response.data);
+                setFormData(mappedData);
+
+                if (mappedData.data_nascimento) {
+                    setSelectedDate(dayjs(mappedData.data_nascimento));
+                }
+            } catch (error) {
+                console.error("Erro ao buscar os dados da zoonose:", error);
+            }
+        };
+    
+        fetchZoonose();
+    }, [id]);
+
+    const mapApiResponseToFormData = (response) => {
+        const { data } = response;
+    
+        return {
+            doenca: "leptospirose",
+            unidade_saude: data.unidade_saude || "",
+            nome: data.nome || "",
+            data_nascimento: data.data_nascimento || "",
+            idade: data.idade || "",
+            sexo: data.sexo || "",
+            numero_sus: data.numero_sus || "",
+            municipio_residencia: "Bento Gonçalves",
+            bairro_id: data.bairro_id || "",
+            rua_id: data.rua_id || "",
+            numero: data.numero || "",
+            sintomas: data.zoonosable?.leptospirose_sintomas?.map((sintoma) => sintoma.id) || [],
+            situacoes: data.zoonosable?.leptospirose_situacaos?.map((situacao) => situacao.id) || [],
+        };
+    };
+
     const handleChange = (event) => {
         const { name, value, type } = event.target;
 
@@ -93,6 +137,8 @@ const CriarLeptospirose = () => {
     };
 
     const handleDateChange = (date) => {
+        setSelectedDate(date);
+
         setFormData((prev) => ({
             ...prev,
             data_nascimento: date ? date.format('YYYY-MM-DD') : '',
@@ -101,33 +147,34 @@ const CriarLeptospirose = () => {
 
     const handleSintomasChange = (event) => {
         const { value, checked } = event.target;
-        
-        setFormData((prevData) => {
-            const updatedSintomas = checked
-                ? [...prevData.sintomas, value]
-                : prevData.sintomas.filter(item => item !== value);
-            
-            return { ...prevData, sintomas: updatedSintomas };
-        });
+        const id = Number(value);
+
+        setFormData((prevState) => ({
+            ...prevState,
+            sintomas: checked
+                ? [...prevState.sintomas, id]
+                : prevState.sintomas.filter((sintomaId) => sintomaId !== id),
+        }));
     };
 
     const handleSituacoesChange = (event) => {
         const { value, checked } = event.target;
-        
-        setFormData((prevData) => {
-            const updatedSituacoes = checked
-                ? [...prevData.situacaos, value]
-                : prevData.situacaos.filter(item => item !== value);
-            
-            return { ...prevData, situacaos: updatedSituacoes };
-        });
+        const id = Number(value);
+
+        setFormData((prevState) => ({
+            ...prevState,
+            situacoes: checked
+                ? [...prevState.situacoes, id]
+                : prevState.situacoes.filter((situacaoId) => situacaoId !== id),
+        }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setFormErrors({});
+        handleDateChange();
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/zoonoses/leptospirose", formData);
+            const response = await axios.put(`http://127.0.0.1:8000/api/zoonoses/leptospirose/${id}`, formData);
             setFormErrors({});
             navigate('/zoonoses');
         } catch (error) {
@@ -189,6 +236,8 @@ const CriarLeptospirose = () => {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker 
                         label="Data de Nascimento" 
+                        name="data_nascimento"
+                        value={selectedDate}
                         sx={{width: '100%'}}
                         onChange={handleDateChange}
                     />
@@ -294,7 +343,7 @@ const CriarLeptospirose = () => {
                         control={
                             <Checkbox
                                 value={id}
-                                checked={formData.sintomas.includes(id)}
+                                checked={formData.sintomas.includes(Number(id))}
                                 onChange={handleSintomasChange}
                             />
                         }
@@ -313,7 +362,7 @@ const CriarLeptospirose = () => {
                         control={
                             <Checkbox
                                 value={id}
-                                checked={formData.situacaos.includes(id)}
+                                checked={formData.situacoes.includes(Number(id))}
                                 onChange={handleSituacoesChange}
                             />
                         }
@@ -334,4 +383,4 @@ const CriarLeptospirose = () => {
     );
   };
   
-export default CriarLeptospirose;
+export default EditarLeptospirose;

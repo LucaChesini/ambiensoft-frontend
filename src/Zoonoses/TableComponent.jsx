@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Delete } from '@mui/icons-material';
+import EditIcon from '@mui/icons-material/Edit';
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
@@ -207,6 +208,13 @@ const TableComponent = () => {
                   onClick={() => deletar(row.id, row.doenca)}
                   >
                     <Delete />
+                  </Button>
+                  <Button 
+                  variant="contained" 
+                  color='info'>
+                    <Link to={`/zoonoses/${row.doenca}/${row.id}/editar`}>
+                      <EditIcon />
+                    </Link>
                   </Button>
                 </TableCell>
               </TableRow>

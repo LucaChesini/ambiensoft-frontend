@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TextField, MenuItem, Button, Select, InputLabel, FormControl, FormControlLabel, Checkbox, FormHelperText } from "@mui/material";
 import { DateField, DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CriarRaiva = () => {
     const [formData, setFormData] = useState({
@@ -41,6 +41,8 @@ const CriarRaiva = () => {
     });
 
     const [formErrors, setFormErrors] = useState({});
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchEnums = async () => {
@@ -131,8 +133,8 @@ const CriarRaiva = () => {
         setFormErrors({});
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/zoonoses/raiva", formData);
-            console.log("Formulário enviado com sucesso:", response.data);
             setFormErrors({});
+            navigate('/zoonoses');
         } catch (error) {
             if (error.response && error.response.data.errors) {
                 setFormErrors(error.response.data.errors);
