@@ -17,6 +17,10 @@ import ShowDengue from './Arboviroses/DengueShow'
 import ShowChikungunya from './Arboviroses/ChikungunyaShow'
 import EditarDengue from './Arboviroses/DengueEditar'
 import EditarChikungunya from './Arboviroses/ChikungunyaEditar'
+import TelaInicial from './inicio/TelaInicial'
+import TelaInicialEnderecos from './Enderecos/TelaInicial'
+import CriarBairro from './Enderecos/Bairro'
+import CriarRua from './Enderecos/Rua'
 
 function App() {
 
@@ -25,7 +29,7 @@ function App() {
       <Navbar/>
       <div className='container mx-auto p-4'>
         <Routes>
-          <Route path='/' element={<About/>} />
+          <Route path='/' element={<TelaInicial/>} />
           <Route path='/zoonoses' element={<ListagemZoonoses/>} />
           <Route path='/zoonoses/raiva/criar' element={<CriarRaiva/>} />
           <Route path='/zoonoses/leptospirose/criar' element={<CriarLeptospirose/>} />
@@ -40,6 +44,9 @@ function App() {
           <Route path="/arboviroses/chikungunya/:id" element={<ShowChikungunya />} />
           <Route path="/arboviroses/dengue/:id/editar" element={<EditarDengue />} />
           <Route path="/arboviroses/chikungunya/:id/editar" element={<EditarChikungunya />} />
+          <Route path="/enderecos" element={<TelaInicialEnderecos />} />
+          <Route path="/enderecos/bairro/criar" element={<CriarBairro />} />
+          <Route path="/enderecos/rua/criar" element={<CriarRua />} />
         </Routes>
       </div>
     </>

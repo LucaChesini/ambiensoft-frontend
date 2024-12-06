@@ -12,7 +12,7 @@ const Navbar = () => {
           </Link>
         </Typography>
         <Button color="inherit">
-          <Link to="/about" className="text-white">Sobre</Link>
+          <Link to="/" className="text-white"></Link>
         </Button>
       </Toolbar>
     </AppBar>
